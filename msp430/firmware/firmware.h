@@ -3,6 +3,7 @@
 #ifndef _FIRMWARE_
 #define _FIRMWARE_
 
-#include "startup.h"
+#include "types.h"
+#include "memorymap.h"
 
 #endif
