@@ -18,16 +18,16 @@ OC          = msp430-objcopy
 CCFLAGS     = '-mmcu=$(TARGET)'
 CPPFLAGS    = '-mmcu=$(TARGET)'
 LDFLAGS     = '-T$(TARGET).ld' #-nostartfiles -nostdlib -nodefaultlibs
-OCFLAGS     = -Obinary --strip-unneeded
+OCFLAGS     = -Oelf32-msp430 --strip-unneeded
 
 DEBUGGER = mspdebug rf2500
 
 # all generates our target bin
-all: $(NAME).bin
+all: $(NAME).elf
 
-# generate out from obj by objcopying from linked obj file
-$(NAME).bin: $(NAME).obj
-	$(OC) $(OCFLAGS) $(NAME).obj $(NAME).bin
+#generate hex from object files
+$(NAME).elf: $(NAME).obj
+	$(OC) $(OCFLAGS) $(NAME).obj $(NAME).elf 
 
 # generate obj by linking all .o files
 $(NAME).obj: $(COBJS) $(CPPOBJS) $(AOBJS) 
@@ -49,10 +49,10 @@ $(NAME).obj: $(COBJS) $(CPPOBJS) $(AOBJS)
 -include $(DEPENDS)
 
 ## Program device using MSP debugger
-flash: $(NAME)
-	$(DEBUGGER) "load $(DIR)/$(NAME)"
+flash: $(NAME).elf
+	$(DEBUGGER) "load $(DIR)/$(NAME).elf"
 
 # clean all generated files
 .PHONY: clean
 clean:
-	-rm $(NAME).bin $(NAME).obj $(COBJS) $(AOBJS) $(DEPENDS)
+	-rm $(NAME).elf $(NAME).obj $(COBJS) $(AOBJS) $(DEPENDS)

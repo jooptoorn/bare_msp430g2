@@ -96,7 +96,18 @@ void deadend(void) {
  */
 
 void reset_handler(void) {
+
+	//test code to see if rest framework works
+	GPIO_PORT1->DIR |= 0x01;					// Set P1.0 to output direction
+	GPIO_PORT1->OUT |= 0x01;					// Turn LED on
+//	uint8_t * ptr = (uint8_t*) 0x022;
+//	*(ptr--) |= 0x01;
+//	*(ptr) |= 0x01;
+
+	while(true);
 	//- Initializing the watchdog timer
+
+	//TODO
 
 	//- Copy any initialized data from ROM to RAM.
 	uint8_t* mirror = &_LD_END_OF_TEXT; //copy from here
@@ -107,8 +118,8 @@ void reset_handler(void) {
 	while (ram < (&_LD_END_OF_BSS)) *(ram++) = 0;
 
 	//- Initializing the stack pointer
-	//mov.w   #__STACK_END,SP         ;
+	__asm__("mov.w   #_LD_STACK_TOP,r1");
 
 	//- Jump to main()
-	JMP(main);
+	//JMP(main); TODO
 }

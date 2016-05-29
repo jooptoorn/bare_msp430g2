@@ -3,6 +3,8 @@
 #ifndef _MEMORYMAP_
 #define _MEMORYMAP_
 
+#include "firmware.h"
+
 /*
  * The Vector Table
  * 
@@ -39,8 +41,40 @@ typedef struct {
 	void* COMP_APLUS_HANDLER;						//Comparator A+
 	void* TIMER1_1;									//Timer1 TA1CCR0
 	void* TIMER1_2;									//Timer1 TA1CCR(1/2), TAIFG
-	void* NMI_HANDLER;								//Non-Maskable int. handler, triggered on NMIFLAG, Oscillator fault, flash mem access violation 
+	void* NMI_HANDLER;								//Non-Maskable int. handler, triggered on NMIFLAG, Oscillator fault, flash mem access violation
 	void* RESET_HANDLER;							//Reset handler, triggered on Power-On and External reset, wachtdog time-out, flash key violation, PC out of range
 } VECTOR_TABLE;
+
+/*
+ * 
+ * General Purpose IO definitions
+ * 
+ */
+typedef struct {
+	HW_RO IN;     //input
+	HW_RW OUT;    //output
+	HW_RW DIR;    //direction
+	HW_RW IFG;    //interrupt flag
+	HW_RW IES;    //interrupt edge
+	HW_RW IE;     //interrupt enable
+	HW_RW SEL;    //selection
+	HW_RW REN;    //resistor enable
+} GPIO_HW_STRUCT;
+
+#define GPIO_PORT1 ((GPIO_HW_STRUCT*) 0x020)
+#define GPIO_PORT2 ((GPIO_HW_STRUCT*) 0x028)
+
+typedef struct {
+	HW_RW GPIO_SEL2_1;
+	HW_RW GPIO_SEL2_2;
+	HW_RW GPIO_SEL2_3;
+	HW_RW GPIO_SEL2_4;
+	HW_RW GPIO_SEL2_5;
+	HW_RW GPIO_SEL2_6;
+	HW_RW GPIO_SEL2_7;
+	HW_RW GPIO_SEL2_8;
+} GPIO_SEL2_HW_STRUCT;
+
+#define GPIO_SEL2 ((GPIO_SEL2_HW_STRUCT*) 0x040)
 
 #endif
