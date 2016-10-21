@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.37132809/PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.37132809/PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.37132809/PATH/value=/bin\:/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/usr/games\:/usr/local/games\:/opt/msp430_gcc/bin
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.37132809/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.37132809/appendContributed=true

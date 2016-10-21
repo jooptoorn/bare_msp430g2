@@ -40,7 +40,6 @@ void hardfault_handler(void) DEFAULTS_TO(deadend);
  * Write table to dedicated parts of flash (refer to msp430xxxx.ld)*/
 
 __attribute__ ((section(".vectors")))
-
 const VECTOR_TABLE vtable = {
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -98,11 +97,8 @@ void deadend(void) {
 void reset_handler(void) {
 
 	//test code to see if rest framework works
-	GPIO_PORT1->DIR |= 0x01;					// Set P1.0 to output direction
-	GPIO_PORT1->OUT |= 0x01;					// Turn LED on
-//	uint8_t * ptr = (uint8_t*) 0x022;
-//	*(ptr--) |= 0x01;
-//	*(ptr) |= 0x01;
+	GPIO_PORT1->DIR |= 0x41;					// Set P1.0 to output direction
+	GPIO_PORT1->OUT |= 0x41;					// Turn LED on
 
 	while(true);
 	//- Initializing the watchdog timer

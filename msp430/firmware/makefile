@@ -10,11 +10,11 @@ COBJS       = $(CSOURCES:%.c=%.o)
 CPPOBJS     = $(CPPSOURCES:%.cpp=%.o)
 AOBJS       = $(ASOURCES:%.S=%.o) 
 
-AS          = msp430-as
-CC          = msp430-gcc
-CPP         = msp430-gcc
-LD          = msp430-ld
-OC          = msp430-objcopy
+AS          = msp430-efl-as
+CC          = msp430-elf-gcc
+CPP         = msp430-elf-c++
+LD          = msp430-elf-ld
+OC          = msp430-elf-objcopy
 CCFLAGS     = '-mmcu=$(TARGET)'
 CPPFLAGS    = '-mmcu=$(TARGET)'
 LDFLAGS     = '-T$(TARGET).ld' #-nostartfiles -nostdlib -nodefaultlibs
@@ -25,7 +25,7 @@ DEBUGGER = mspdebug rf2500
 # all generates our target bin
 all: $(NAME).elf
 
-#generate hex from object files
+#generate elf from object files
 $(NAME).elf: $(NAME).obj
 	$(OC) $(OCFLAGS) $(NAME).obj $(NAME).elf 
 
@@ -50,9 +50,12 @@ $(NAME).obj: $(COBJS) $(CPPOBJS) $(AOBJS)
 
 ## Program device using MSP debugger
 flash: $(NAME).elf
-	$(DEBUGGER) "load $(DIR)/$(NAME).elf"
+	$(DEBUGGER) "erase" "load $(DIR)/$(NAME).elf" 
+
+binary: $(NAME).elf
+	$(OC) -O binary $(NAME).elf $(NAME).bin
 
 # clean all generated files
 .PHONY: clean
 clean:
-	-rm $(NAME).elf $(NAME).obj $(COBJS) $(AOBJS) $(DEPENDS)
+	-rm -f $(NAME).elf $(NAME).obj $(NAME).bin $(COBJS) $(AOBJS) $(DEPENDS)
