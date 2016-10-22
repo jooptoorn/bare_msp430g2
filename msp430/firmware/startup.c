@@ -7,14 +7,6 @@ extern uint8_t _LD_START_OF_DATA;
 extern uint8_t _LD_END_OF_DATA;
 extern uint8_t _LD_END_OF_BSS;
 
-/*Define a jump to function (instead of call). Used in startup code to jump to main()*/
-#define JMP(addr) \
-    __asm__(" pc,%0" \
-            : /*output*/ \
-            : /*input*/ \
-            "r" (addr) \
-            );
-
 //forward declarations of infinite loop and reset handler
 void deadend(void);
 void reset_handler(void);
@@ -95,12 +87,6 @@ void deadend(void) {
  */
 
 void reset_handler(void) {
-
-	//test code to see if rest framework works
-	GPIO_PORT1->DIR |= 0x41;					// Set P1.0 to output direction
-	GPIO_PORT1->OUT |= 0x41;					// Turn LED on
-
-	while(true);
 	//- Initializing the watchdog timer
 
 	//TODO
@@ -116,6 +102,6 @@ void reset_handler(void) {
 	//- Initializing the stack pointer
 	__asm__("mov.w   #_LD_STACK_TOP,r1");
 
-	//- Jump to main()
-	//JMP(main); TODO
+	//- Jump to main(), don't use call to save space on stack
+	 asm("JMP main");
 }

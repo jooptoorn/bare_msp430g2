@@ -1,0 +1,4 @@
+blink.o: blink.c firmware/firmware.h firmware/types.h \
+ firmware/memorymap.h firmware/firmware.h
+blink.c firmware/firmware.h firmware/types.h :
+ firmware/memorymap.h firmware/firmware.h :
