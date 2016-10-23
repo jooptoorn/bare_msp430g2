@@ -14,7 +14,7 @@ void main(void){
 
 	//enable watchdog
 
-	while(true);
+	while(1);
 }
 
 

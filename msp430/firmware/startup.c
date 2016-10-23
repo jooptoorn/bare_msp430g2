@@ -87,8 +87,8 @@ void deadend(void) {
  */
 
 void reset_handler(void) {
-	//disable watchdog
-	*WDT_CTL = (WDT_PW | WDTHOLD);
+	//disable wdog, clear counter
+	*WDT_CTL = (WDT_PW | WDTHOLD | WDTCNTCL);
 
 	//- Copy any initialized data from ROM to RAM.
 	uint8_t* mirror = &_LD_END_OF_TEXT; //copy from here

@@ -21,7 +21,6 @@ typedef enum {
 //always write to watchdog with password in upper bits
 #define WDT_PW		(0x5a << 8)
 
-//void wdt_init(uint8_t ps, bool aux_clk, bool mode, bool nmi, bool edge);
-void wdt_init(uint16_t testvar);
+void wdt_config(uint16_t cfg);
 
 #endif
