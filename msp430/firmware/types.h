@@ -12,18 +12,6 @@ typedef short int16_t;
 typedef long int32_t;
 typedef long long int64_t;
 
-#ifndef __cplusplus
-
-#undef bool
-#undef true
-#undef false
-
-typedef _Bool bool;
-#define false 0
-#define true (!false)
-
-#endif
-
 #ifndef NULL 
 #define NULL ((void*)0)
 #endif

@@ -10,7 +10,9 @@
 void main(void){
 	//test code to see if rest framework works
 	GPIO_PORT1->DIR |= 0x41;					// Set P1.0 to output direction
-	GPIO_PORT1->OUT =  0x01;					// Turn LED on
+	GPIO_PORT1->OUT =  0x40;					// Turn LED on
+
+	//enable watchdog
 
 	while(true);
 }

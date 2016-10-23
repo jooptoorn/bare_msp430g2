@@ -1,9 +1,7 @@
-/*defs for booting the device*/
-
 #ifndef _MEMORYMAP_
 #define _MEMORYMAP_
 
-#include "firmware.h"
+#include "types.h"
 
 /*
  * The Vector Table
@@ -47,6 +45,25 @@ typedef struct {
 
 /*
  * 
+ * Interrupt defs
+ *
+ */
+//interrupt enable
+typedef enum {
+	NMIIE	= 0x10,	//NMI
+	WDTIE	= 0x01	//Watchdog interval mode
+} IE1_ENUM;
+//interrupt flags
+typedef enum {
+	NMIIFG	= 0x10,	//NMI
+	WDTIFG	= 0x01	//Watchdog interval mode
+} IFG1_ENUM;
+
+#define IE1			((IE1_ENUM*) 	0x0000)
+#define IFG1		((IFG1_ENUM*) 	0x0002)
+
+/*
+ *
  * General Purpose IO definitions
  * 
  */
@@ -76,5 +93,12 @@ typedef struct {
 } GPIO_SEL2_HW_STRUCT;
 
 #define GPIO_SEL2 ((GPIO_SEL2_HW_STRUCT*) 0x040)
+
+/*
+ *
+ * Watchdog defs
+ *
+ */
+#define WDT_CTL 	((uint16_t*) 0x0120)
 
 #endif

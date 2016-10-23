@@ -1,4 +1,4 @@
 firmware/startup.o: firmware/startup.c firmware/firmware.h \
- firmware/types.h firmware/memorymap.h
+ firmware/types.h firmware/memorymap.h firmware/timer.h
 firmware/startup.c firmware/firmware.h :
- firmware/types.h firmware/memorymap.h :
+ firmware/types.h firmware/memorymap.h firmware/timer.h :

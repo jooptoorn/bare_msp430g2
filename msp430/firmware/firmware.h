@@ -5,5 +5,6 @@
 
 #include "types.h"
 #include "memorymap.h"
+#include "timer.h"
 
 #endif

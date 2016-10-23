@@ -26,7 +26,7 @@ void wdog_handler(void) DEFAULTS_TO(deadend);
 void comp_aplus_handler(void) DEFAULTS_TO(deadend);
 void timer1_1_handler(void) DEFAULTS_TO(deadend);
 void timer1_2_handler(void) DEFAULTS_TO(deadend);
-void hardfault_handler(void) DEFAULTS_TO(deadend);
+void hardfault_handler(void) DEFAULTS_TO(reset_handler);
 
 /* Declare the interrupt table. Format and details are specified in memorymap.h.
  * Write table to dedicated parts of flash (refer to msp430xxxx.ld)*/
@@ -87,9 +87,8 @@ void deadend(void) {
  */
 
 void reset_handler(void) {
-	//- Initializing the watchdog timer
-
-	//TODO
+	//disable watchdog
+	*WDT_CTL = (WDT_PW | WDTHOLD);
 
 	//- Copy any initialized data from ROM to RAM.
 	uint8_t* mirror = &_LD_END_OF_TEXT; //copy from here
@@ -100,8 +99,8 @@ void reset_handler(void) {
 	while (ram < (&_LD_END_OF_BSS)) *(ram++) = 0;
 
 	//- Initializing the stack pointer
-	__asm__("mov.w   #_LD_STACK_TOP,r1");
+	asm("mov.w   #_LD_STACK_TOP,r1");
 
 	//- Jump to main(), don't use call to save space on stack
-	 asm("JMP main");
+	asm("JMP main");
 }
