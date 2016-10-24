@@ -8,7 +8,7 @@ MEMORY {
   ram   	(rwx) : ORIGIN = 0x0200, LENGTH = 512
 }
 
-_LD_STACK_TOP = 0x3ff; /* Stack should start here */
+_LD_STACK_TOP = 0x3fe; /* Stack should start here */
 
 /* SECTIONS lists where various parts data and code should go.
    Since they all just relate to the addressed defined above,
