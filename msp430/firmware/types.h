@@ -3,14 +3,20 @@
 
 typedef unsigned char uint8_t;
 typedef unsigned int uint16_t;
+typedef unsigned int size_t;
 typedef unsigned long uint32_t;
-typedef unsigned long size_t;
 typedef unsigned long long uint64_t;
 
 typedef char int8_t;
 typedef int int16_t;
 typedef long int32_t;
 typedef long long int64_t;
+
+#ifndef __cplusplus
+typedef unsigned char bool;
+#define false 0
+#define true (!false)
+#endif
 
 #ifndef NULL 
 #define NULL ((void*)0)

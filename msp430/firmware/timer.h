@@ -18,9 +18,26 @@ typedef enum {
 	WDTISx_MSK	= 0x03
 } WDT_CTL_ENUM;
 
+#define WDT_CLK_DIV_32768 	0
+#define WDT_CLK_DIV_8192	1
+#define WDT_CLK_DIV_512		2
+#define WDT_CLK_DIV_64		3
+
+#define WDT_CLK_SM			0 << 2
+#define WDT_CLK_EXT			1 << 2
+
+#define WDT_MODE_WDOG		0 << 4
+#define WDT_MODE_ITVL		1 << 4
+
+#define WDT_PIN_MODE_RST	0 << 5
+#define WDT_PIN_MODE_NMI	1 << 5
+
+#define WDT_NMI_RISE_EDGE	0 << 6
+#define WDT_NMI_FALL_EDGE	1 << 6
+
 //always write to watchdog with password in upper bits
 #define WDT_PW		(0x5a << 8)
 
-void wdt_config(uint16_t cfg);
+void wdt_config(uint8_t cfg);
 
 #endif
