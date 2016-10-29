@@ -59,8 +59,8 @@ typedef enum {
 	WDTIFG	= 0x01	//Watchdog interval mode
 } IFG1_ENUM;
 
-#define IE1			((IE1_ENUM*) 	0x0000)
-#define IFG1		((IFG1_ENUM*) 	0x0002)
+#define IE1			((uint16_t*) 	0x0000)
+#define IFG1		((uint16_t*) 	0x0002)
 
 /*
  *
