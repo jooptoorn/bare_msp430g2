@@ -8,7 +8,3 @@ inline void wdt_config(uint8_t cfg){
 	//enable wdog
 	*WDT_CTL = (WDT_PW | cfg);
 }
-
-inline void wdt_feed(void){
-	*WDT_CTL = (WDT_PW | WDTCNTCL);
-}

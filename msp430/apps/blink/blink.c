@@ -10,13 +10,10 @@
 __attribute__((__interrupt__))
 void  wdog_handler(void){
 	static uint16_t cnt = 0;
-	//multiples of 16 amount to ~1Hz
+	//multiples of 16 amount to ~2Hz
 	if(!(cnt++ %16))
-	{//check current status and invert
-		if(GPIO_PORT1->OUT & 0x40)
-			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,false);
-		else
-			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,true);
+	{	//do stuff
+		;
 	}
 }
 
@@ -29,10 +26,7 @@ void io1_handler(void){
 	//do stuff
 	if(src & GPIO_PIN3){
 		//check current status and invert
-		if(GPIO_PORT1->OUT & 0x40)
-			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,false);
-		else
-			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,true);
+		gpio_toggle_pin(GPIO_PORT1, GPIO_PIN6);
 	}
 }
 
@@ -52,6 +46,7 @@ void main(void){
 	//enable interrupts
 	*IE1 |= WDTIE;
 	gpio_set_interrupt(GPIO_PORT1, GPIO_PIN3, true, GPIO_EDGE_HIGHTOLOW);
+
 	while(1){
 		wdt_feed();
 	}
