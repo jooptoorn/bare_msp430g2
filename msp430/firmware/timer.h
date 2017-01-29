@@ -38,6 +38,15 @@ typedef enum {
 //always write to watchdog with password in upper bits
 #define WDT_PW		(0x5a << 8)
 
+/**
+ * set the watchdog configuration in the control register
+ * @param cfg bits to write in control reg
+ */
 void wdt_config(uint8_t cfg);
+
+/**
+ * clears the watchdog timer counter
+ */
+void wdt_feed(void);
 
 #endif

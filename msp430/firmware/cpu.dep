@@ -1,4 +1,4 @@
 firmware/cpu.o: firmware/cpu.c firmware/cpu.h firmware/firmware.h \
- firmware/types.h firmware/memorymap.h firmware/timer.h
+ firmware/types.h firmware/memorymap.h firmware/gpio.h firmware/timer.h
 firmware/cpu.c firmware/cpu.h firmware/firmware.h :
- firmware/types.h firmware/memorymap.h firmware/timer.h :
+ firmware/types.h firmware/memorymap.h firmware/gpio.h firmware/timer.h :

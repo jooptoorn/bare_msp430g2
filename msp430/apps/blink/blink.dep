@@ -1,4 +1,6 @@
 blink.o: blink.c firmware/firmware.h firmware/types.h \
- firmware/memorymap.h firmware/cpu.h firmware/firmware.h firmware/timer.h
+ firmware/memorymap.h firmware/cpu.h firmware/firmware.h firmware/gpio.h \
+ firmware/timer.h
 blink.c firmware/firmware.h firmware/types.h :
- firmware/memorymap.h firmware/cpu.h firmware/firmware.h firmware/timer.h :
+ firmware/memorymap.h firmware/cpu.h firmware/firmware.h firmware/gpio.h :
+ firmware/timer.h :

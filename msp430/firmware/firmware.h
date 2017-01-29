@@ -6,6 +6,7 @@
 #include "types.h"
 #include "memorymap.h"
 #include "cpu.h"
+#include "gpio.h"
 #include "timer.h"
 
 #endif

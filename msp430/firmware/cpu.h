@@ -14,16 +14,16 @@
  * Enable: */
 #define INTERRUPTS_EN 	\
 {						\
-	__asm__("NOP");		\
-	__asm__("EINT");	\
-	__asm__("NOP");		\
+	asm("NOP");		\
+	asm("EINT");	\
+	asm("NOP");		\
 }
 /* Disable: */
 #define INTERRUPTS_DIS 	\
 {						\
-	__asm__("NOP");		\
-	__asm__("DINT");	\
-	__asm__("NOP");		\
+	asm("NOP");		\
+	asm("DINT");	\
+	asm("NOP");		\
 }
 
 /* Set/clear GIE bit
