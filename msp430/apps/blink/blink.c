@@ -20,6 +20,22 @@ void  wdog_handler(void){
 	}
 }
 
+__attribute__((__interrupt__))
+void io1_handler(void){
+	//determine source of interrupt
+	uint8_t src = GPIO_PORT1->IFG;
+	//clear register
+	GPIO_PORT1->IFG = 0;
+	//do stuff
+	if(src & GPIO_PIN3){
+		//check current status and invert
+		if(GPIO_PORT1->OUT & 0x40)
+			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,false);
+		else
+			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,true);
+	}
+}
+
 void main(void){
 	//enable interrupts
 	INTERRUPTS_EN;
@@ -33,13 +49,10 @@ void main(void){
 	gpio_set_pullup(GPIO_PORT1, GPIO_PIN3, true);
 	//set watchdog to interval mode
 	wdt_config(WDT_CLK_DIV_32768 | WDT_MODE_WDOG);
-	//enable interrupt
+	//enable interrupts
 	*IE1 |= WDTIE;
+	gpio_set_interrupt(GPIO_PORT1, GPIO_PIN3, true, GPIO_EDGE_HIGHTOLOW);
 	while(1){
-		if(gpio_read_pin(GPIO_PORT1, GPIO_PIN3))
-			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,true);
-		else
-			gpio_write_pin(GPIO_PORT1,GPIO_PIN6,false);
 		wdt_feed();
 	}
 }

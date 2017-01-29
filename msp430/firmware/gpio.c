@@ -58,3 +58,19 @@ void gpio_set_pulldown(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en)
 	else
 		port->REN &= ~pin;
 }
+
+void gpio_set_interrupt(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en, bool dir){
+	if(en){ //enable the interrupt
+		//disable interrupt to prevent accidental trigger
+		port->IE &= ~pin;
+		//first set edge
+		if(dir) //interrupt on low-to-high
+			port->IES |= pin;
+		else	//interrupt on high-to-low
+			port->IES &= ~pin;
+		//then enable interrupt
+		port->IE |= pin;
+	} else { //disable the interrupt
+		port->IE &= ~pin;
+	}
+}

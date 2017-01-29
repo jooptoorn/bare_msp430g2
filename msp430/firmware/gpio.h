@@ -20,6 +20,9 @@ typedef uint8_t GPIO_PIN;
 #define GPIO_INPUT		0
 #define GPIO_OUTPUT		1
 
+#define GPIO_EDGE_LOWTOHIGH 0
+#define GPIO_EDGE_HIGHTOLOW 1
+
 /**
  * sets the direction of an entire i/o port to in- or output
  * @param port the gpio port
@@ -81,5 +84,7 @@ void gpio_set_pullup(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en);
  * @param en true for enable, false for disable
  */
 void gpio_set_pulldown(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en);
+
+void gpio_set_interrupt(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en, bool dir);
 
 #endif
