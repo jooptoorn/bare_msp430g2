@@ -101,4 +101,6 @@ void gpio_set_pulldown(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en)
 
 void gpio_set_interrupt(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en, bool dir);
 
+void led_green_write(void);
+
 #endif

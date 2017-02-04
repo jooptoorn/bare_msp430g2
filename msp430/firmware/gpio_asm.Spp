@@ -1,0 +1,7 @@
+         ; automatically created header file
+ .text
+ .global led_green_write
+led_green_write:
+ bis.b #40h, &(0x021)
+ ret
+ .end

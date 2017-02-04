@@ -1,20 +1,22 @@
 NAME        = firmware
 TARGET 		= msp430g2553
 DIR			= $(shell pwd)
+ASOURCES    = $(shell find -L . -type f -name '*.S')
 CSOURCES    = $(shell find -L . -type f -name '*.c')
 CPPSOURCES  = $(shell find -L . -type f -name '*.cpp')
-ASOURCES    = $(shell find -L . -type f -name '*.S')
 INCLUDES    = $(shell find -L . -type f -name '*.h')
+AOBJS       = $(ASOURCES:%.S=%.o)
 DEPENDS     = $(CSOURCES:%.c=%.dep)
 COBJS       = $(CSOURCES:%.c=%.o)
 CPPOBJS     = $(CPPSOURCES:%.cpp=%.o)
-AOBJS       = $(ASOURCES:%.S=%.o) 
 
-AS          = msp430-efl-as
+PREP		= msp430-elf-cpp
+AS          = msp430-elf-as
 CC          = msp430-elf-gcc
 CPP         = msp430-elf-c++
 LD          = msp430-elf-ld
 OC          = msp430-elf-objcopy
+ASFLAGS	    = '-mmcu=$(TARGET)'
 CCFLAGS     = '-mmcu=$(TARGET)'
 CPPFLAGS    = '-mmcu=$(TARGET)'
 LDFLAGS     = '-T$(TARGET).ld' #-nostartfiles -nostdlib -nodefaultlibs
@@ -42,8 +44,16 @@ $(NAME).obj: $(COBJS) $(CPPOBJS) $(AOBJS)
 	rm -f $*.d
 
 # compile assembler files
+# generate special header for macro's throughout project, then include in assembly file
+# abuse the normal preprocessor, because msp430-elf-as won't treat .S files like it should..
+#step 1: extract macros from headers included in assembly .S file and store in auto created header
+#step 2: preprocess file again with header created in 1, create .Spp file
+#step 3: compile .Spp file
+
 %.o: %.S
-	$(AS) $(ASFLAGS) -o $@ -c $<
+	$(PREP) -P -dM -DGEN_ASS_HDR $< -o $ $(<:%.S=%.h)
+	$(PREP) -P -w $< -o $ $(<:%.S=%.Spp)
+	$(AS) $(ASFLAGS) $(<:%.S=%.Spp) -o $@
 
 # include depencies are defined in .dep files. Include them as rules here.
 -include $(DEPENDS)
@@ -58,4 +68,4 @@ binary: $(NAME).elf
 # clean all generated files
 .PHONY: clean
 clean:
-	-rm -f $(NAME).elf $(NAME).obj $(NAME).bin $(COBJS) $(AOBJS) $(DEPENDS)
+	-rm -f $(NAME).elf $(NAME).obj $(COBJS) $(AOBJS) $(AOBJS:%.o=%.Spp) $(DEPENDS)
