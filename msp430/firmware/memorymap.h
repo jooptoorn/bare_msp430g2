@@ -92,6 +92,9 @@ typedef struct {
 	HW_RW GPIO_SEL2_8;
 } GPIO_SEL2_HW_STRUCT;
 
+/* define registers seperately for use with assembly */
+#define P1OUT (0x021)
+
 #define GPIO_SEL2 ((GPIO_SEL2_HW_STRUCT*) 0x040)
 
 /*

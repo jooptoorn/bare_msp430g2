@@ -26,7 +26,7 @@ void io1_handler(void){
 	//do stuff
 	if(src & GPIO_PIN3){
 		//check current status and invert
-		gpio_toggle_pin(GPIO_PORT1, GPIO_PIN6);
+//		gpio_toggle_pin(GPIO_PORT1, GPIO_PIN6);
 	}
 }
 
@@ -35,10 +35,12 @@ void main(void){
 	INTERRUPTS_EN;
 	//set direction of LEDs to output
 	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN0 | GPIO_PIN6, GPIO_OUTPUT);
-	//set direction of switches to input
-	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN3, GPIO_INPUT);
 	//clear leds
 	gpio_write_port(GPIO_PORT1, false);
+	//test
+	led_green_write();
+	//set direction of switches to input
+	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN3, GPIO_INPUT);
 	//enable pulldown switch
 	gpio_set_pullup(GPIO_PORT1, GPIO_PIN3, true);
 	//set watchdog to interval mode
