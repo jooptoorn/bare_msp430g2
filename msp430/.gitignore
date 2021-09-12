@@ -1,3 +1,7 @@
+#symlinks
+msp430/apps/*/firmware/
+msp430/apps/*/*.ld
+
 # Temporary assembler files
 *.Spp
 
