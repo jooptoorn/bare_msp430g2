@@ -5,6 +5,7 @@ ASOURCES    = $(shell find -L . -type f -name '*.S')
 CSOURCES    = $(shell find -L . -type f -name '*.c')
 CPPSOURCES  = $(shell find -L . -type f -name '*.cpp')
 INCLUDES    = $(shell find -L . -type f -name '*.h')
+LDSOURCE	= $(shell find -L . -type f -name '$(TARGET).ld')
 
 AOBJS       = $(ASOURCES:%.S=%.o)
 DEPENDS     = $(CSOURCES:%.c=%.dep)
@@ -20,7 +21,7 @@ OC          = msp430-elf-objcopy
 ASFLAGS	    = -mmcu=$(TARGET) -g
 CCFLAGS     = -mmcu=$(TARGET) -g
 CPPFLAGS    = -mmcu=$(TARGET)
-LDFLAGS     = -T$(TARGET).ld #-nostartfiles -nostdlib -nodefaultlibs
+LDFLAGS     = -T$(LDSOURCE) #-nostartfiles -nostdlib -nodefaultlibs
 #OCFLAGS     = -Oelf32-msp430 --strip-unneeded
 OCFLAGS     = -Oelf32-msp430
 
