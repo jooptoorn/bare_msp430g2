@@ -13,7 +13,7 @@ void  wdog_handler(void){
 	//multiples of 16 amount to ~2Hz
 	if(!(cnt++ %16))
 	{	//do stuff
-		;
+		gpio_toggle_pin(GPIO_PORT1,GPIO_PIN6);
 	}
 }
 
@@ -26,7 +26,7 @@ void io1_handler(void){
 	//do stuff
 	if(src & GPIO_PIN3){
 		//check current status and invert
-//		gpio_toggle_pin(GPIO_PORT1, GPIO_PIN6);
+		// gpio_toggle_pin(GPIO_PORT1, GPIO_PIN6);
 	}
 }
 
@@ -38,19 +38,20 @@ void main(void){
 	//clear leds
 	gpio_write_port(GPIO_PORT1, false);
 	//test
-	led_green_write();
+	led_green_on();
+	gpio_write_pin_low(GPIO_PORT1,GPIO_PIN6);
 	//set direction of switches to input
 	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN3, GPIO_INPUT);
 	//enable pulldown switch
 	gpio_set_pullup(GPIO_PORT1, GPIO_PIN3, true);
 	//set watchdog to interval mode
-	wdt_config(WDT_CLK_DIV_32768 | WDT_MODE_WDOG);
+	wdt_config(WDT_CLK_DIV_32768 | WDT_MODE_ITVL);
 	//enable interrupts
 	*IE1 |= WDTIE;
 	gpio_set_interrupt(GPIO_PORT1, GPIO_PIN3, true, GPIO_EDGE_HIGHTOLOW);
 
 	while(1){
-		wdt_feed();
+		//wdt_feed();
 	}
 }
 
