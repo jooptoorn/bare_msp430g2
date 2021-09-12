@@ -15,6 +15,6 @@ led_green_on:
 	ret
 
 led_green_off:
-	bit.b #0BFh, &P1OUT
+	bic.b #40h, &P1OUT
 	ret
 	.end
