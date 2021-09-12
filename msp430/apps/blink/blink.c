@@ -16,9 +16,11 @@ void  wdog_handler(void){
 		//test
 		static uint8_t cnt = 0;
 		if(cnt++ & 1)
-			gpio_write_pin_high(GPIO_PORT1, GPIO_PIN6);
+			// gpio_write_pin_high(GPIO_PORT1, GPIO_PIN6);
+			led_green_on();
 		else
-			gpio_write_pin_low(GPIO_PORT1, GPIO_PIN6);
+			// gpio_write_pin_low(GPIO_PORT1, GPIO_PIN6);
+			led_green_off();
 	}
 }
 
