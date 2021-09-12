@@ -1,4 +1,0 @@
-firmware/gpio.o: firmware/gpio.c firmware/gpio.h firmware/firmware.h \
- firmware/types.h firmware/memorymap.h firmware/cpu.h firmware/timer.h
-firmware/gpio.c firmware/gpio.h firmware/firmware.h :
- firmware/types.h firmware/memorymap.h firmware/cpu.h firmware/timer.h :
