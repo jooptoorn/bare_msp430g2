@@ -9,6 +9,10 @@
 	.text
 	.global led_green_on
 	.global led_green_off
+	.global led_green_toggle
+	.global led_red_on
+	.global led_red_off
+	.global led_red_toggle
 
 led_green_on:
 	bis.b #40h, &P1OUT
@@ -17,4 +21,22 @@ led_green_on:
 led_green_off:
 	bic.b #40h, &P1OUT
 	ret
+
+led_green_toggle:
+	xor.b #40h, &P1OUT
+	ret
+
+led_red_on:
+	bis.b #01h, &P1OUT
+	ret
+
+led_red_off:
+	bic.b #01h, &P1OUT
+	ret
+
+led_red_toggle:
+	xor.b #01h, &P1OUT
+	ret
+
+
 	.end

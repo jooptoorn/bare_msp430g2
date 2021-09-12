@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "firmware.h": "c"
+        "firmware.h": "c",
+        "memorymap.h": "c",
+        "gpio.h": "c"
     }
 }

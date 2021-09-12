@@ -101,7 +101,12 @@ void gpio_set_pulldown(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en)
 
 void gpio_set_interrupt(GPIO_HW_STRUCT * const port, const GPIO_PIN pin, bool en, bool dir);
 
+//implemented in assembly
 void led_green_on(void);
 void led_green_off(void);
+void led_green_toggle(void);
+void led_red_on(void);
+void led_red_off(void);
+void led_red_toggle(void);
 
 #endif

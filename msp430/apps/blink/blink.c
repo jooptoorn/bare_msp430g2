@@ -13,14 +13,10 @@ void  wdog_handler(void){
 	//multiples of 16 amount to ~2Hz
 	if(!(cnt++ %16))
 	{	//do stuff
-		//test
-		static uint8_t cnt = 0;
-		if(cnt++ & 1)
-			// gpio_write_pin_high(GPIO_PORT1, GPIO_PIN6);
-			led_green_on();
-		else
-			// gpio_write_pin_low(GPIO_PORT1, GPIO_PIN6);
-			led_green_off();
+		//toggle both LEDs
+		led_green_toggle();
+		led_red_toggle();
+
 	}
 }
 
@@ -42,9 +38,9 @@ void main(void){
 	INTERRUPTS_EN;
 	//set direction of LEDs to output
 	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN0 | GPIO_PIN6, GPIO_OUTPUT);
-	//clear leds
-	gpio_write_port(GPIO_PORT1, false);
-	gpio_write_pin_low(GPIO_PORT1,GPIO_PIN6);
+	//set leds
+	led_green_on();
+	led_red_off();
 	//set direction of switches to input
 	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN3, GPIO_INPUT);
 	//enable pulldown switch
