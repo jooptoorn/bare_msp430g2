@@ -7,10 +7,14 @@
 #endif
 
 	.text
-	.global led_green_write
+	.global led_green_on
+	.global led_green_off
 
-led_green_write:
+led_green_on:
 	bis.b #40h, &P1OUT
 	ret
 
+led_green_off:
+	bit.b #0BFh, &P1OUT
+	ret
 	.end
