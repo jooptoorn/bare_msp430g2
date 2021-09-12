@@ -1,1 +1,1 @@
-firmware/msp430g2553.ld
+../../firmware/msp430g2553.ld
