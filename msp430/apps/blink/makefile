@@ -18,12 +18,14 @@ CC          = msp430-elf-gcc
 CPP         = msp430-elf-c++
 LD          = msp430-elf-ld
 OC          = msp430-elf-objcopy
+OD			= msp430-elf-objdump
 ASFLAGS	    = -mmcu=$(TARGET) -g
 CCFLAGS     = -mmcu=$(TARGET) -g
 CPPFLAGS    = -mmcu=$(TARGET)
 LDFLAGS     = -T$(LDSOURCE) #-nostartfiles -nostdlib -nodefaultlibs
 #OCFLAGS     = -Oelf32-msp430 --strip-unneeded
 OCFLAGS     = -Oelf32-msp430
+ODFLAGS		= -d -S
 
 DEBUGGER = mspdebug tilib
 
@@ -72,3 +74,6 @@ binary: $(NAME).elf
 .PHONY: clean
 clean:
 	-rm -f $(NAME).elf $(NAME).obj $(COBJS) $(AOBJS) $(AOBJS:%.o=%.Spp) $(DEPENDS)
+	
+debug: $(NAME).elf
+	$(OD) $(ODFLAGS) $(NAME).elf > $(NAME).out
