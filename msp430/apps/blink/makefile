@@ -30,7 +30,7 @@ ODFLAGS		= -d -S
 DEBUGGER = mspdebug tilib
 
 # all generates our target bin
-all: $(NAME).elf
+all: $(NAME).elf $(NAME).out
 
 #generate elf from object files
 $(NAME).elf: $(NAME).obj
@@ -75,5 +75,7 @@ binary: $(NAME).elf
 clean:
 	-rm -f $(NAME).elf $(NAME).obj $(COBJS) $(AOBJS) $(AOBJS:%.o=%.Spp) $(DEPENDS)
 	
-debug: $(NAME).elf
+debug: $(NAME).out
+
+$(NAME).out: $(NAME).elf
 	$(OD) $(ODFLAGS) $(NAME).elf > $(NAME).out
