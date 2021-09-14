@@ -21,7 +21,7 @@ SECTIONS {
 	 * in http://www.ti.com/lit/ds/slas735j/slas735j.pdf page 11. Each
 	 * entry refers to the memory address of handler functions code in flash/RAM*/
     vectors : {
-        *(.vectors)
+        KEEP(*(.vectors))
     } >vectflash
  
     /* .text section contains code and readonly (const) globals */

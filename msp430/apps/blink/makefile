@@ -20,9 +20,9 @@ LD          = msp430-elf-ld
 OC          = msp430-elf-objcopy
 OD			= msp430-elf-objdump
 ASFLAGS	    = -mmcu=$(TARGET) -g
-CCFLAGS     = -mmcu=$(TARGET) -g
-CPPFLAGS    = -mmcu=$(TARGET)
-LDFLAGS     = -T$(LDSOURCE) #-nostartfiles -nostdlib -nodefaultlibs
+CCFLAGS     = -mmcu=$(TARGET) -g -ffunction-sections -fdata-sections
+CPPFLAGS    = -mmcu=$(TARGET) -ffunction-sections -fdata-sections
+LDFLAGS     = -T$(LDSOURCE) --entry=reset_handler --gc-sections
 #OCFLAGS     = -Oelf32-msp430 --strip-unneeded
 OCFLAGS     = -Oelf32-msp430
 ODFLAGS		= -d -S
