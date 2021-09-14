@@ -43,7 +43,7 @@ void main(void){
 	led_red_off();
 	//set direction of switches to input
 	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN3, GPIO_INPUT);
-	//enable pulldown switch
+	//enable pullup switch
 	gpio_set_pullup(GPIO_PORT1, GPIO_PIN3, true);
 	//set watchdog to interval mode
 	wdt_config(WDT_CLK_DIV_32768 | WDT_MODE_ITVL);
