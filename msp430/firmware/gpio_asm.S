@@ -7,34 +7,34 @@
 #endif
 
 	.text
-	.global led_green_on
-	.global led_green_off
-	.global led_green_toggle
-	.global led_red_on
-	.global led_red_off
-	.global led_red_toggle
+	.global led_green_on_asm
+	.global led_green_off_asm
+	.global led_green_toggle_asm
+	.global led_red_on_asm
+	.global led_red_off_asm
+	.global led_red_toggle_asm
 
-led_green_on:
+led_green_on_asm:
 	bis.b #40h, &P1OUT
 	ret
 
-led_green_off:
+led_green_off_asm:
 	bic.b #40h, &P1OUT
 	ret
 
-led_green_toggle:
+led_green_toggle_asm:
 	xor.b #40h, &P1OUT
 	ret
 
-led_red_on:
+led_red_on_asm:
 	bis.b #01h, &P1OUT
 	ret
 
-led_red_off:
+led_red_off_asm:
 	bic.b #01h, &P1OUT
 	ret
 
-led_red_toggle:
+led_red_toggle_asm:
 	xor.b #01h, &P1OUT
 	ret
 

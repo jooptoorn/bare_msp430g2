@@ -14,8 +14,8 @@ void  wdog_handler(void){
 	if(!(cnt++ %16))
 	{	//do stuff
 		//toggle both LEDs
-		led_green_toggle();
-		led_red_toggle();
+		led_green_toggle_asm();
+		led_red_toggle_asm();
 
 	}
 }
@@ -39,8 +39,8 @@ void main(void){
 	//set direction of LEDs to output
 	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN0 | GPIO_PIN6, GPIO_OUTPUT);
 	//set leds
-	led_green_on();
-	led_red_off();
+	led_green_on_asm();
+	led_red_off_asm();
 	//set direction of switches to input
 	gpio_set_dir_pin(GPIO_PORT1, GPIO_PIN3, GPIO_INPUT);
 	//enable pullup switch
