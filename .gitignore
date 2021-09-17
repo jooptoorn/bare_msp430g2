@@ -1,10 +1,15 @@
-#symlinks
+# Build folder
+msp430/apps/*/build/*
+**/CMakeFiles/
+
+# symlinks
 msp430/apps/*/firmware/
 msp430/apps/*/*.ld
 msp430/apps/*/*.ld/
 
-# Temporary assembler files
+# Temporary files
 *.Spp
+**/cmake_install.cmake
 
 # Prerequisites
 *.d
