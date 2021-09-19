@@ -16,8 +16,8 @@ find_program(MSP430-OBJDUMP msp430-elf-objdump)
 find_program(MSPDEBUG mspdebug)
 
 #generic flags
-set(MSP430_CFLAGS "-g -ffunction-sections -fdata-sections -nostartfiles -mcpu=msp430" CACHE STRING "MSP430 compilation flags")
-set(MSP430_LFLAGS "-Wl,--entry=reset_handler -Wl,--gc-sections -nostartfiles -mcpu=msp430"CACHE STRING "MSP430 linker flags")
+set(MSP430_CFLAGS "-g3 -ggdb -gdwarf-2 -ffunction-sections -fdata-sections -nostartfiles -mcpu=msp430" CACHE STRING "MSP430 compilation flags")
+set(MSP430_LFLAGS "-g3 -ggdb -gdwarf-2 -ffunction-sections -fdata-sections -nostartfiles -mcpu=msp430 -Wl,--entry=reset_handler,--unresolved-symbols=ignore-in-shared-libs" CACHE STRING "MSP430 linker flags")
 
 #define toolchain
 set(CMAKE_SYSTEM_NAME Generic)
@@ -41,11 +41,15 @@ function(msp430_add_executable_compilation EXECUTABLE)
 	message(STATUS "ARGN= ${ARGN}")
 	set_target_properties(${EXECUTABLE_ELF} PROPERTIES 
 		COMPILE_FLAGS "-mmcu=${MSP430_MCU} -DF_CPU=${MSP430_MCU_FREQ} ${MSP430_CFLAGS}"
-		LINK_FLAGS "-Wl,-T${MSP430_LD} ${MSP430_LFLAGS}")
+		LINK_FLAGS "-Wl,-T${MSP430_LD} ${MSP430_LFLAGS} -Xlinker -Map=${EXECUTABLE}.map")
 
 	# display size info after compilation
 	add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 		COMMAND ${MSP430-SIZE} ${EXECUTABLE_ELF})
+	
+	# generate debug info
+	add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
+		COMMAND ${MSP430-OBJDUMP} -S ${EXECUTABLE_ELF} > ${EXECUTABLE}.dbg)
 endfunction(msp430_add_executable_compilation)
 
 function(msp430_add_executable_upload ${EXECUTABLE})
