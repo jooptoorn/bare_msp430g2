@@ -10,11 +10,11 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "target": "${workspaceFolder}/build/blink.elf",
-            "gdbpath": "C:\\SysGCC\\msp430\\bin\\msp430-elf-gdb.exe",
+            "gdbpath": "C:\\ti\\msp430-gcc\\bin\\msp430-elf-gdb.exe",
+            "arguments": "",
             "autorun": [
-                "file C:/Users/joopt/source/bare_msp430g2/msp430/apps/blink/build/blink.elf",
-                "target remote localhost:2000",
-                "break main"
+                "info sources",
+                "target remote localhost:55000"
             ]
         }
     ]
